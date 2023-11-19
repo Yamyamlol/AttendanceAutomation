@@ -37,8 +37,10 @@ current_date = now.strftime("%Y-%m-%d")
  
 f = open(('D:/Coding/mini project/Attendance of ')+current_date+'.csv','w+',newline = '')
 lnwriter = csv.writer(f)
+lnwriter.writerow(["S. NO","NAME", "TIME", "DATE"])
  
 while True:
+    i=1
     _,frame = video_capture.read()
     small_frame = cv2.resize(frame,(0,0),fx=0.25,fy=0.25)
     rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
@@ -75,8 +77,9 @@ while True:
                     students.remove(name)
                     print(students)
                     current_time = now.strftime("%H-%M-%S")
-                    lnwriter.writerow([name,current_time])
-    cv2.imshow("attendence system",frame)
+                    lnwriter.writerow([i,name,current_time, current_date])
+                    i = i+1
+    cv2.imshow("Face Recognition",frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
  
