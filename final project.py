@@ -6,6 +6,7 @@ import os
 from datetime import datetime
  
 video_capture = cv2.VideoCapture(0)
+
 Abhijeet = face_recognition.load_image_file("D:\Coding\mini project\images\Abhijeet.jpg")
 AbhijeetEncoding = face_recognition.face_encodings(Abhijeet)[0]
 
