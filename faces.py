@@ -103,10 +103,10 @@ def capture_images(array_manager, name_entry, destination_directory, capture_int
 def add_new_face():
     destination_directory = "D:/Coding/mini project/images"
 
-    name_entry = tk.Entry()
-    name_entry.pack()
+    name_entry = tk.Entry(font = ("", 16))
+    name_entry.place(relx=0.65, rely=0.52, relwidth=0.25, relheight=0.075)
 
-    add_face_button = tk.Button(text="Add Face", cursor="hand2", command=lambda: capture_images(ArrayManager(), name_entry, destination_directory, capture_interval=500))
-    add_face_button.pack()
+    add_face_button = tk.Button(text=("Add Face"), cursor="hand2", command=lambda: capture_images(ArrayManager(), name_entry, destination_directory, capture_interval=500))
+    add_face_button.place(relx=0.65, rely=0.6, relwidth=0.25, relheight=0.075)
 
     tk.mainloop()
