@@ -1,12 +1,13 @@
 import tkinter as tk
-from PIL import Image, ImageTk, ImageOps
+from PIL import Image, ImageTk
 from markattendance import mark_attendance_button_pressed
-from faces import add_new_face
+from newfaces import executeAdd
 
 class SimpleUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Attendance System")
+        self.add_face_window = None  # Initialize as None to check if the window is open
 
         # Load the background image using Pillow
         background_image_path = "D:/Coding/mini project/UI images/3395620.jpg"
@@ -32,15 +33,13 @@ class SimpleUI:
         mark_attendance_button = self.create_button("Mark Attendance", self.mark_attendance)
         mark_attendance_button.place(relx=0.1, rely=0.1, relwidth=0.3, relheight=0.1)
 
-        # Use a lambda function to delay the execution of add_face until the button is pressed
         add_face_button = self.create_button("Add Face to Database", lambda: self.add_face())
         add_face_button.place(relx=0.1, rely=0.3, relwidth=0.3, relheight=0.1)
 
-        train_database_button = self.create_button("Train Database", self.train_database)
-        train_database_button.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.1)
+        # Removed the "Train Database" button
 
         exit_button = self.create_button("Exit", self.root.destroy)
-        exit_button.place(relx=0.1, rely=0.7, relwidth=0.3, relheight=0.1)
+        exit_button.place(relx=0.1, rely=0.5, relwidth=0.3, relheight=0.1)
 
     def center_window(self):
         screen_width = self.root.winfo_screenwidth()
@@ -55,17 +54,14 @@ class SimpleUI:
         self.root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
     def create_button(self, text, command):
-        button = tk.Button(self.root, text=text, command=command, font=("Arial", 12), bg="#8370ee", activebackground="#6f61a8")
+        button = tk.Button(self.root, text=text, command=command, font=("Arial", 14), bg="#8370ee", activebackground="#6f61a8")
         return button
 
     def mark_attendance(self):
         mark_attendance_button_pressed()
 
     def add_face(self):
-        add_new_face()
-
-    def train_database(self):
-        print("Training Database")
+        executeAdd()
 
 if __name__ == "__main__":
     root = tk.Tk()
