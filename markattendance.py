@@ -52,6 +52,8 @@ def mark_attendance_with_face_recognition(data_file_path, destination_directory)
 
     video_capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
+    display_positions = {}
+
     while True:
         _, frame = video_capture.read()
         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
@@ -74,11 +76,16 @@ def mark_attendance_with_face_recognition(data_file_path, destination_directory)
 
             if name in known_faces_names:
                 font = cv2.FONT_HERSHEY_COMPLEX
-                bottom_left_corner_of_text = (10, 100)
                 font_scale = 0.5
                 font_color = (0, 0, 0)
                 thickness = 1
                 line_type = 2
+
+                # Use a unique position for each name
+                if name not in display_positions:
+                    display_positions[name] = len(display_positions) + 1
+
+                bottom_left_corner_of_text = (10, 100 + 30 * display_positions[name])
 
                 cv2.putText(frame, f"{name} Present",
                             bottom_left_corner_of_text,
@@ -102,6 +109,7 @@ def mark_attendance_with_face_recognition(data_file_path, destination_directory)
 
     video_capture.release()
     cv2.destroyAllWindows()
+
 def mark_attendance_button_pressed():
     """
     Function to mark attendance using face recognition.
