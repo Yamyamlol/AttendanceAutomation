@@ -3,8 +3,23 @@ from tkinter import Entry, Button
 import cv2
 import face_recognition
 import os
-import numpy as np
-from PIL import Image, ImageTk
+
+class FaceCaptureApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Face Capture App")
+
+        self.name_label = tk.Label(root, text="Enter Name:")
+        self.name_label.pack()
+
+        self.name_entry = Entry(root)
+        self.name_entry.pack()
+
+        self.add_photos_button = Button(root, text="Add Face", command=self.add_face)
+        self.add_photos_button.pack()
+
+    def add_face(self):
+        executeAdd()
 
 def capture_faces(name_entry, images_directory="D:/Coding/mini project/images", database_directory="D:/Coding/mini project/database"):
     name = name_entry.get()
@@ -58,27 +73,20 @@ def capture_faces(name_entry, images_directory="D:/Coding/mini project/images", 
     cv2.destroyAllWindows()
     print(f"Capturing faces for {name} completed.")
 
-class FaceCaptureApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Face Capture App")
-
-        self.name_label = tk.Label(root, text="Enter Name:")
-        self.name_label.pack()
-
-        self.name_entry = Entry(root)
-        self.name_entry.pack()
-
-        self.add_photos_button = Button(root, text="Add Face", command=self.AddFaceButtonPressed)
-        self.add_photos_button.pack()
-
-    def AddFaceButtonPressed(self):
-        capture_faces(self.name_entry)
-
 def executeAdd():
-    root = tk.Tk()
-    app = FaceCaptureApp(root)
-    root.mainloop()
+    if not hasattr(executeAdd, "root") or executeAdd.root is None:
+        executeAdd.root = tk.Tk()
+        app = FaceCaptureApp(executeAdd.root)
+        executeAdd.root.protocol("WM_DELETE_WINDOW", on_closing)
+        executeAdd.root.mainloop()
+
+# Function to be called when the window is closed
+# Function to be called when the window is closed
+def on_closing():
+    if executeAdd.root:
+        executeAdd.root.destroy()
+        executeAdd.root = None
+
 
 if __name__ == "__main__":
     executeAdd()
